@@ -44,24 +44,6 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
     [super awakeFromNib];
 }
 
-- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
-    NSPasteboard *pboard;
-    NSDragOperation sourceDragMask;
-    
-    sourceDragMask = [sender draggingSourceOperationMask];
-    pboard = [sender draggingPasteboard];
-    
-    if ([pboard canReadItemWithDataConformingToTypes:[NSArray arrayWithObjects:@"public.jpeg", nil]]) {
-        if (sourceDragMask & NSDragOperationLink) {
-            return NSDragOperationLink;
-        } else if (sourceDragMask & NSDragOperationCopy) {
-            return NSDragOperationCopy;
-        }
-    }
-    
-    return NSDragOperationNone;
-}
-
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
     NSPasteboard *pboard;
     NSDragOperation sourceDragMask;
@@ -88,7 +70,7 @@ NS_INLINE BOOL MPAreRectsEqual(NSRect r1, NSRect r2)
         } else {
             return NO;
         }
-    }
+    } else return [super performDragOperation:sender];
     return YES;
 }
 
